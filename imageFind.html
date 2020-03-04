@@ -1,0 +1,52 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+<form id="ImageForm" method="post">
+
+    Upload image:
+    <input id="image-file" type="file" name="file" />
+    <input type="submit" value="Upload" />
+</form>
+<script>
+$( document ).ready(function() {
+$("#ImageForm").submit( function( e ) {
+    var form = this;
+    e.preventDefault(); 
+                               
+    var fileInput = $(this).find("#image-file")[0],
+        file = fileInput.files && fileInput.files[0];
+	console.log(file)
+    if( file ) {
+       var img = new Image();
+
+        img.src = window.URL.createObjectURL( file );
+
+        img.onload = function() {
+            var width = img.naturalWidth,
+                height = img.naturalHeight;
+
+            window.URL.revokeObjectURL( img.src );
+
+            if( width = 600 && height = 600) {
+                form.submit();
+            }
+            else if( width < 600 && height < 600{
+                alert('too small ! choose another image');
+            } else {
+			  alert('too big! crop image');
+			}
+        };
+    }
+    else { 
+        form.submit();
+    }
+
+});
+});
+
+</script>
+</body>
+</html>
